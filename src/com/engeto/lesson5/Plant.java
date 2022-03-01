@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class Plant {
 
+    private static final int DEFAULT_WATERING_FREQUENCY = 7;
+
     private String name;
     private String notes;
     private LocalDate plantedDate;
@@ -23,13 +25,24 @@ public class Plant {
     }
 
     public Plant(String name) {
-        this(name, LocalDate.now(), 7);
+        this(name, LocalDate.now(), DEFAULT_WATERING_FREQUENCY);
     }
 
     public String getWateringInfo() {
         return "name: '" + this.name+ "', last watering: "
                 + this.lastWateringDate + ", next watering: "
                 + lastWateringDate.plusDays(wateringFrequency);
+    }
+
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "name='" + name +
+                "', notes='" + notes +
+                "', plantedDate=" + plantedDate +
+                ", lastWateringDate=" + lastWateringDate +
+                ", wateringFrequency=" + wateringFrequency +
+                "}";
     }
 
     public String getName() {

@@ -4,9 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Plant plant = new Plant("Fíkus");
+        Plant plant1 = new Plant("Fíkus");
 
-        System.out.println(plant.getWateringInfo());
+        System.out.println(plant1);
+
+        System.out.println(plant1.getWateringInfo());
 
     }
 }
