@@ -6,29 +6,24 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Plant plant1 = null;
-        Plant plant2 = null;
+        PlantsList plantsList = new PlantsList();
 
         try {
-            plant1 = new Plant("Fíkus");
-            plant2 = new Plant("Bazalka", "na vaření", LocalDate.of(2022,01,12),
-                    LocalDate.of(2022, 01,12), 0);
+            Plant plant1 = new Plant("Fíkus");
+
+            plantsList.add(plant1);
+
+            Plant plant2 = new Plant("Bazalka", "na vaření", LocalDate.of(2022,01,12),
+                    LocalDate.of(2022, 01,12), 3);
+
+            plantsList.add(plant2);
 
         } catch (PlantException e) {
             System.err.println(e.getMessage());;
         }
 
-        if(plant1 != null){
-            System.out.println(plant1);
-            System.out.println(plant1.getWateringInfo());
-        }
-
-
-        if(plant2 != null){
-            System.out.println(plant2);
-            System.out.println(plant2.getWateringInfo());
-        }
-
+        System.out.println("Watering info:");
+        plantsList.forEach(p -> System.out.println(p.getWateringInfo()));
 
     }
 }
