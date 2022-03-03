@@ -4,9 +4,13 @@ import java.time.LocalDate;
 
 public class Main {
 
+    private static final String DELIMITER = "\t";
+
     public static void main(String[] args) {
 
         PlantsList plantsList = new PlantsList();
+
+        plantsList.importFromFile("kvetiny.txt", DELIMITER);
 
         try {
             Plant plant1 = new Plant("Fíkus");
