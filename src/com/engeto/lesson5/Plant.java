@@ -12,19 +12,19 @@ public class Plant {
     private LocalDate lastWateringDate;
     private int wateringFrequency;
 
-    public Plant(String name, String notes, LocalDate plantedDate, LocalDate lastWateringDate, int wateringFrequency) {
+    public Plant(String name, String notes, LocalDate plantedDate, LocalDate lastWateringDate, int wateringFrequency) throws PlantException {
         this.name = name;
         this.notes = notes;
         this.plantedDate = plantedDate;
-        this.lastWateringDate = lastWateringDate;
-        this.wateringFrequency = wateringFrequency;
+        setLastWateringDate(lastWateringDate);
+        setWateringFrequency(wateringFrequency);
     }
 
-    public Plant(String name, LocalDate plantedDate, int wateringFrequency) {
+    public Plant(String name, LocalDate plantedDate, int wateringFrequency) throws PlantException {
         this(name, "", plantedDate, LocalDate.now(), wateringFrequency);
     }
 
-    public Plant(String name) {
+    public Plant(String name) throws PlantException {
         this(name, LocalDate.now(), DEFAULT_WATERING_FREQUENCY);
     }
 
@@ -73,7 +73,10 @@ public class Plant {
         return lastWateringDate;
     }
 
-    public void setLastWateringDate(LocalDate lastWateringDate) {
+    public void setLastWateringDate(LocalDate lastWateringDate) throws PlantException {
+        if(lastWateringDate.isBefore(this.plantedDate))
+            throw new PlantException("Last watering date is not valid (must be after plated date)!");
+
         this.lastWateringDate = lastWateringDate;
     }
 
@@ -81,7 +84,11 @@ public class Plant {
         return wateringFrequency;
     }
 
-    public void setWateringFrequency(int wateringFrequency) {
+    public void setWateringFrequency(int wateringFrequency) throws PlantException {
+
+        if(wateringFrequency <= 0)
+            throw new PlantException("Watering frequency is not valid (must be greater then 0)!");
+
         this.wateringFrequency = wateringFrequency;
     }
 }
