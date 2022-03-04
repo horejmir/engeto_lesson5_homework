@@ -28,7 +28,7 @@ public class PlantList extends ArrayList<Plant> {
                 }
             }
 
-            System.out.println("DONE - FROM FILE: '" + filename + "' " + rowImported + "/" + rowCounter + " ROWS SUCCESSFULLY IMPORTED.");
+            System.out.println("DONE - IMPORTED ROWS "+ rowImported + "/" + rowCounter + " FROM FILE: '" + filename + "'");
         } catch (IOException e) {
             System.err.println("ERROR - READING FILE '" + filename + "'");
         }
@@ -37,13 +37,19 @@ public class PlantList extends ArrayList<Plant> {
     public void exportToFile(String filename, String delimiter) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 
-            for(Plant plant : this) {
-                writer.write(plant.getName());
-                writer.newLine();
+            int rowCounter = 0;
 
+            for(Plant plant : this) {
+                writer.write(plant.getName() + delimiter +
+                                plant.getNotes() + delimiter +
+                                plant.getWateringFrequency() + delimiter +
+                                plant.getLastWateringDate() + delimiter +
+                                plant.getPlantedDate());
+                writer.newLine();
+                rowCounter++;
             }
 
-
+            System.out.println("DONE - WRITE " + rowCounter + " ITEMS TO FILE: '" + filename + "'");
         } catch (IOException e) {
             System.err.println("ERROR - WRITING TO FILE '" + filename + "'");
         }
