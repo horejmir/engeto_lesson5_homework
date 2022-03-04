@@ -7,7 +7,7 @@ public class Main {
 
     private static final String DELIMITER = "\t";
     public static final String INPUT_FILENAME =
-          "kvetiny.txt";
+            "kvetiny.txt";
 //          "neexistujici_soubor.txt";
 //          "kvetiny_spatna_frekvence.txt";
 //          "kvetiny_spatne_datum.txt";
@@ -22,7 +22,11 @@ public class Main {
         var plants = new PlantList();
 
         // reading plants from file
-        plants.importFromFile(INPUT_FILENAME, DELIMITER);
+        try {
+            plants.importFromFile(INPUT_FILENAME, DELIMITER);
+        } catch (PlantException e) {
+            System.err.println(e.getMessage());
+        }
 
         System.out.println("=== Watering info ===");
         plants.forEach(p -> System.out.println(p.getWateringInfo()));

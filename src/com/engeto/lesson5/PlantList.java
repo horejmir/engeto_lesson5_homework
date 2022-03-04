@@ -3,11 +3,14 @@ package com.engeto.lesson5;
 import java.io.*;
 import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PlantList extends ArrayList<Plant> {
 
-    public void importFromFile(String filename, String delimiter){
+    public void importFromFile(String filename, String delimiter) throws PlantException {
+
+        List<String> exceptionMessages = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))) {
             int rowCounter = 0;
@@ -22,15 +25,20 @@ public class PlantList extends ArrayList<Plant> {
                     this.add(plant);
                     rowImported++;
                 } catch (DateTimeException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
+                    exceptionMessages.add("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 } catch (PlantException e) {
-                    System.err.println("ERROR - CREATING PLANT OBJECT FROM DATA IN FILE ('"+ filename +"') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
+                    exceptionMessages.add("ERROR - CREATING PLANT OBJECT FROM DATA IN FILE ('"+ filename +"') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 }
             }
 
             System.out.println("DONE - IMPORTED ROWS "+ rowImported + "/" + rowCounter + " FROM FILE: '" + filename + "'");
         } catch (IOException e) {
-            System.err.println("ERROR - READING FILE '" + filename + "'");
+            exceptionMessages.add("ERROR - READING FILE '" + filename + "'");
+        }
+        finally {
+            if(exceptionMessages.size() > 0) {
+                throw new PlantException(String.join("\n", exceptionMessages));
+            }
         }
     }
 
