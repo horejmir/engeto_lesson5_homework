@@ -21,22 +21,21 @@ public class PlantsList extends ArrayList<Plant> {
 
                 String name = parts[0];
                 String notes = parts[1];
-                Integer wateringFrequency = Integer.parseInt(parts[2]);
+                int wateringFrequency = Integer.parseInt(parts[2]);
                 LocalDate lastWateringDate = LocalDate.parse(parts[3]);
                 LocalDate plantedDate = LocalDate.parse(parts[4]);
-
 
                 try {
                     Plant plant = new Plant(name, notes, plantedDate, lastWateringDate, wateringFrequency);
                     this.add(plant);
                 } catch (PlantException e){
-                    System.err.println("ERROR - CREATING PLANT OBJECT: " + e.getLocalizedMessage());
+                    System.err.println("ERROR - CREATING PLANT OBJECT: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
-            System.err.println("ERROR - FILE NOT FOUND: " + e.getLocalizedMessage());
+            System.err.println("ERROR - FILE '" + filename + "' NOT FOUND.");
         } catch (DateTimeException | IllegalArgumentException | ArrayIndexOutOfBoundsException e){
-            System.err.println("ERROR - READING DATA FROM FILE: " + e.getLocalizedMessage());
+            System.err.println("ERROR - READING DATA FROM FILE ('"+ filename +"'):" + e.getMessage());
         }
     }
 }

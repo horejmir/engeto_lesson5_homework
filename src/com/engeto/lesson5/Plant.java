@@ -75,7 +75,7 @@ public class Plant {
 
     public void setLastWateringDate(LocalDate lastWateringDate) throws PlantException {
         if(lastWateringDate.isBefore(this.plantedDate))
-            throw new PlantException("Last watering date is not valid (must be after plated date)!");
+            throw new PlantException("plant name: '" + this.name + "' - last watering date is not valid (must be equal or after plated date)!");
 
         this.lastWateringDate = lastWateringDate;
     }
@@ -87,7 +87,7 @@ public class Plant {
     public void setWateringFrequency(int wateringFrequency) throws PlantException {
 
         if(wateringFrequency <= 0)
-            throw new PlantException("Watering frequency is not valid (must be greater then 0)!");
+            throw new PlantException("plant name: '" + this.name + "' - watering frequency is not valid (must be greater then 0)!");
 
         this.wateringFrequency = wateringFrequency;
     }
