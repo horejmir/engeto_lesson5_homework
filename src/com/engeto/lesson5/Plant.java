@@ -12,6 +12,18 @@ public class Plant {
     private LocalDate lastWateringDate;
     private int wateringFrequency;
 
+    public Plant(String name) {
+        this.name = name;
+        this.notes = "";
+        this.plantedDate = LocalDate.now();
+        this.lastWateringDate = LocalDate.now();
+        this.wateringFrequency = DEFAULT_WATERING_FREQUENCY;
+    }
+
+    public Plant(String name, LocalDate plantedDate, int wateringFrequency) throws PlantException {
+        this(name, "", plantedDate, LocalDate.now(), wateringFrequency);
+    }
+
     public Plant(String name, String notes, LocalDate plantedDate, LocalDate lastWateringDate, int wateringFrequency) throws PlantException {
         this.name = name;
         this.notes = notes;
@@ -20,12 +32,15 @@ public class Plant {
         setWateringFrequency(wateringFrequency);
     }
 
-    public Plant(String name, LocalDate plantedDate, int wateringFrequency) throws PlantException {
-        this(name, "", plantedDate, LocalDate.now(), wateringFrequency);
-    }
+    public Plant(String inputLine, String delimiter) throws PlantException {
 
-    public Plant(String name) throws PlantException {
-        this(name, LocalDate.now(), DEFAULT_WATERING_FREQUENCY);
+        String[] parts = inputLine.split(delimiter);
+
+        this.name = parts[0];
+        this.notes = parts[1];
+        this.plantedDate = LocalDate.parse(parts[4]);
+        setWateringFrequency(Integer.parseInt(parts[2]));
+        setLastWateringDate(LocalDate.parse(parts[3]));
     }
 
     public String getWateringInfo() {
