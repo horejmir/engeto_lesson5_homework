@@ -24,6 +24,10 @@ public class Main {
         // reading plants from file
         plants.importFromFile(INPUT_FILENAME, DELIMITER);
 
+        System.out.println("=== Watering info ===");
+        plants.forEach(p -> System.out.println(p.getWateringInfo()));
+        System.out.println("=====================");
+
         //adding 2 new plants
         var plant1 = new Plant("Fíkus");
         plants.add(plant1);
@@ -37,10 +41,6 @@ public class Main {
         //delete random plant
         Random rnd = new Random();
         plants.remove(rnd.nextInt(plants.size()));
-
-        System.out.println("=== Watering info ===");
-        plants.forEach(p -> System.out.println(p.getWateringInfo()));
-        System.out.println("=====================");
 
         // export to file
         plants.exportToFile(OUTPUT_FILENAME, DELIMITER);
