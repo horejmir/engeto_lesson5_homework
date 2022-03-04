@@ -22,7 +22,7 @@ public class PlantList extends ArrayList<Plant> {
                     this.add(plant);
                     rowImported++;
                 } catch (DateTimeException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("ERROR - READING DATA FROM FILE ('"+ filename +"') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
+                    System.err.println("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 } catch (PlantException e) {
                     System.err.println("ERROR - CREATING PLANT OBJECT FROM DATA IN FILE ('"+ filename +"') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 }
@@ -34,7 +34,7 @@ public class PlantList extends ArrayList<Plant> {
         }
     }
 
-    public void exportToFile(String filename, String delimiter) {
+    public void exportToFile(String filename, String delimiter) throws PlantException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 
             int rowCounter = 0;
@@ -51,7 +51,7 @@ public class PlantList extends ArrayList<Plant> {
 
             System.out.println("DONE - WRITE " + rowCounter + " ITEMS TO FILE: '" + filename + "'");
         } catch (IOException e) {
-            System.err.println("ERROR - WRITING TO FILE '" + filename + "'");
+            throw new PlantException("ERROR - WRITING TO FILE '" + filename + "'");
         }
 
     }
