@@ -22,6 +22,7 @@ public class PlantList extends ArrayList<Plant> {
                 try {
                     this.add(new Plant(inputLine, delimiter));
                     rowImported++;
+
                 } catch (PlantException e) {
                     exceptionMessages.add("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 }
