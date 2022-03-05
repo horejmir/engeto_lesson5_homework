@@ -7,7 +7,7 @@ public class Main {
 
     private static final String DELIMITER = "\t";
     public static final String INPUT_FILENAME =
-            "kvetiny.txt";
+          "kvetiny.txt";
 //          "neexistujici_soubor.txt";
 //          "kvetiny_spatna_frekvence.txt";
 //          "kvetiny_spatne_datum.txt";

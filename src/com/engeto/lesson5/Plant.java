@@ -1,6 +1,7 @@
 package com.engeto.lesson5;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Plant {
 
@@ -36,11 +37,25 @@ public class Plant {
 
         String[] parts = inputLine.split(delimiter);
 
+        if(parts.length != 5) throw new PlantException("Wrong number of items on the row.");
+
+        LocalDate plantedDate, lastWateringDate;
+        int wateringFrequency;
+
+        try {
+            plantedDate = LocalDate.parse(parts[4]);
+            wateringFrequency = Integer.parseInt(parts[2]);
+            lastWateringDate = LocalDate.parse(parts[3]);
+        } catch (DateTimeParseException | NumberFormatException e) {
+            throw new PlantException("Wrong format: " + e.getMessage());
+        }
+
         this.name = parts[0];
         this.notes = parts[1];
-        this.plantedDate = LocalDate.parse(parts[4]);
-        setWateringFrequency(Integer.parseInt(parts[2]));
-        setLastWateringDate(LocalDate.parse(parts[3]));
+        this.plantedDate = plantedDate;
+        setLastWateringDate(lastWateringDate);
+        setWateringFrequency(wateringFrequency);
+
     }
 
     public String getWateringInfo() {

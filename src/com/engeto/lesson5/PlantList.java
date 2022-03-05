@@ -1,7 +1,6 @@
 package com.engeto.lesson5;
 
 import java.io.*;
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,16 +20,12 @@ public class PlantList extends ArrayList<Plant> {
                 String inputLine = scanner.nextLine();
 
                 try {
-                    Plant plant = new Plant(inputLine, delimiter);
-                    this.add(plant);
+                    this.add(new Plant(inputLine, delimiter));
                     rowImported++;
-                } catch (DateTimeException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    exceptionMessages.add("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 } catch (PlantException e) {
-                    exceptionMessages.add("ERROR - CREATING PLANT OBJECT FROM DATA IN FILE ('"+ filename +"') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
+                    exceptionMessages.add("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped): " + e.getMessage());
                 }
             }
-
             System.out.println("DONE - IMPORTED ROWS "+ rowImported + "/" + rowCounter + " FROM FILE: '" + filename + "'");
         } catch (IOException e) {
             exceptionMessages.add("ERROR - READING FILE '" + filename + "'");
