@@ -9,11 +9,10 @@ public class PlantList extends ArrayList<Plant> {
 
     public void importFromFile(String filename, String delimiter) throws PlantException {
 
-        List<String> exceptionMessages = new ArrayList<>();
-
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))) {
             int rowCounter = 0;
             int rowImported = 0;
+            List<String> exceptionMessages = new ArrayList<>();
 
             while (scanner.hasNextLine()) {
                 rowCounter++;
@@ -28,13 +27,12 @@ public class PlantList extends ArrayList<Plant> {
                 }
             }
             System.out.println("DONE - IMPORTED ROWS "+ rowImported + "/" + rowCounter + " FROM FILE: '" + filename + "'");
-        } catch (IOException e) {
-            exceptionMessages.add("ERROR - READING FILE '" + filename + "'");
-        }
-        finally {
-            if(exceptionMessages.size() > 0) {
+
+            if(exceptionMessages.size() > 0)
                 throw new PlantException(String.join("\n", exceptionMessages));
-            }
+
+        } catch (IOException e) {
+                throw new PlantException("ERROR - READING FILE '" + filename + "'");
         }
     }
 
