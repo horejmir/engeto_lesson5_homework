@@ -6,10 +6,10 @@ import java.util.Random;
 public class Main {
 
     private static final String DELIMITER = "\t";
-    public static final String INPUT_FILENAME =
-            "kvetiny.txt";
+    private static final String INPUT_FILENAME =
+//          "kvetiny.txt";
 //          "neexistujici_soubor.txt";
-//          "kvetiny_spatna_frekvence.txt";
+            "kvetiny_spatne_dva_radky.txt";
 //          "kvetiny_spatne_datum.txt";
 //          "kvetiny_nesplnuje_logiku_tridy_plant.txt";
 //          "vystup.txt";
@@ -43,8 +43,7 @@ public class Main {
         } catch (PlantException e) { System.err.println(e.getMessage()); }
 
         //delete random plant
-        Random rnd = new Random();
-        plants.remove(rnd.nextInt(plants.size()));
+        plants.remove(new Random().nextInt(plants.size()));
 
         // export to file
         try {
