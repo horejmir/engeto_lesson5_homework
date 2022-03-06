@@ -7,12 +7,12 @@ public class Main {
 
     private static final String DELIMITER = "\t";
     private static final String INPUT_FILENAME =
-//          "kvetiny.txt";
-//          "neexistujici_soubor.txt";
-            "kvetiny_spatne_dva_radky.txt";
-//          "kvetiny_spatne_datum.txt";
-//          "kvetiny_nesplnuje_logiku_tridy_plant.txt";
-//          "vystup.txt";
+//                          "kvetiny.txt";
+//                          "neexistujici_soubor.txt";
+                            "kvetiny_spatne_dva_radky.txt";
+//                          "kvetiny_spatne_datum.txt";
+//                          "kvetiny_nesplnuje_logiku_tridy_plant.txt";
+//                          "vystup.txt";
 
 
     private static final String OUTPUT_FILENAME = "vystup.txt";
@@ -25,7 +25,21 @@ public class Main {
         try {
             plants.importFromFile(INPUT_FILENAME, DELIMITER);
         } catch (PlantException e) {
+
             System.err.println(e.getMessage());
+
+//            test of PlantException and PlantMultiException
+
+//            if(e instanceof PlantMultiException) {
+//                PlantMultiException multiExp = (PlantMultiException)e;
+//                System.err.println(multiExp.getMessage());
+//                multiExp.getExceptionList().forEach(exp -> exp.printStackTrace());
+//            } else {
+//                System.err.println(e.getMessage());
+//                e.printStackTrace();
+//            }
+
+
         }
 
         System.out.println("=== Watering info ===");

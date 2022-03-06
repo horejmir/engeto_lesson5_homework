@@ -15,7 +15,7 @@ public class PlantList extends ArrayList<Plant> {
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))) {
             int rowCounter = 0;
             int rowImported = 0;
-            List<String> exceptionMessages = new ArrayList<>();
+            List<PlantException> exceptions = new ArrayList<>();
 
             while (scanner.hasNextLine()) {
                 rowCounter++;
@@ -24,16 +24,15 @@ public class PlantList extends ArrayList<Plant> {
                 try {
                     this.add(new Plant(inputLine, delimiter));
                     rowImported++;
-
                 } catch (PlantException e) {
-                    exceptionMessages.add("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped)\n\t" + e.getMessage());
+                    exceptions.add(new PlantException("ERROR - READING DATA FROM FILE ('" + filename + "') ON ROW " + rowCounter + " (row skipped)\n\t" + e.getMessage()));
                 }
             }
 
             LOGGER.info("IMPORTED ROWS "+ rowImported + "/" + rowCounter + " FROM FILE: '" + filename + "'");
 
-            if (exceptionMessages.size() > 0)
-                throw new PlantException(String.join("\n", exceptionMessages));
+            if (exceptions.size() == 1) throw exceptions.get(0);
+            else if (exceptions.size() > 1) throw new PlantMultiException(exceptions);
 
         } catch (IOException e) {
                 throw new PlantException("ERROR - READING FILE '" + filename + "'");
