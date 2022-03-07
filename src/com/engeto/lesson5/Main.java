@@ -26,20 +26,13 @@ public class Main {
             plants.importFromFile(INPUT_FILENAME, DELIMITER);
         } catch (PlantException e) {
 
-            System.err.println(e.getMessage());
+            // System.err.println(e.getMessage());
 
-//            test of PlantException and PlantMultiException
-
+            // test print details of exceptions
 //            if(e instanceof PlantMultiException) {
 //                PlantMultiException multiExp = (PlantMultiException)e;
-//                System.err.println(multiExp.getMessage());
 //                multiExp.getExceptionList().forEach(exp -> exp.printStackTrace());
-//            } else {
-//                System.err.println(e.getMessage());
-//                e.printStackTrace();
-//            }
-
-
+//            } else { e.printStackTrace(); }
         }
 
         System.out.println("=== Watering info ===");
